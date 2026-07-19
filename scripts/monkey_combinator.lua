@@ -20,7 +20,7 @@ function combinator.tick(tick)
             data.previous_read_value = stack.valid_for_read
 
             if (stack.valid_for_read) then
-                if (stack.name == "monkey") then
+                if (stack.name == "monkey" or stack.name == "tired-monkey") then
                     data.control_behavior_section.set_slot(1, {value = "signal-C", min = stack.get_tag("smarts")})
                 end
             else
