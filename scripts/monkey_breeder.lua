@@ -3,15 +3,14 @@
 
 
 function breeder_has_monkeys(breeder_data)
-    intentory1 = breeder_data.slot1.get_inventory(defines.inventory.chest)
-    inventory2 = breeder_data.slot2.get_inventory(defines.inventory.chest)
+    slotonevalid = breeder_data.slot1.valid and breeder_data.slot1.valid_for_read
+    slottwovalid = breeder_data.slot2.valid and breeder_data.slot2.valid_for_read
 
-    if intentory1.is_empty() or inventory2.is_empty() then
-        return false
+    if slotonevalid and slottwovalid then
+        return breeder_data.slot1.name == "monkey" and breeder_data.slot2.name == "monkey"
     else
-        return intentory1[1].name == "monkey" and inventory2[1].name == "monkey"
+        return false
     end
-
 end
 
 function breed(monkey1, monkey2)
@@ -42,8 +41,7 @@ function test.tick(tick)
     for unit_number, data in pairs(storage.monkey_factories) do
         local entity = data.entity
     
-        
-        -- entity.disabled_by_script  = not breeder_has_monkeys(data)
+        entity.disabled_by_script  = not breeder_has_monkeys(data)
 
         -- on craft
         if entity and entity.valid and data.products_finished < entity.products_finished then
@@ -51,11 +49,10 @@ function test.tick(tick)
 
             outputinventory =entity.get_inventory(defines.inventory.crafter_trash) 
 
-            --stats = breed(data.slot1.get_inventory(defines.inventory.chest)[1], data.slot2.get_inventory(defines.inventory.chest)[1])
+            stats = breed(data.slot1, data.slot2)
             
-            -- outputinventory.insert({name = "monkey", count = 1, tags = stats, custom_description = "Born on: " .. game.tick .. " ticks. \nSmarts: " .. stats.smarts})
-            outputinventory.insert({name = "ice", count = 1})
-            
+            outputinventory.insert({name = "monkey", count = 1, tags = stats, custom_description = "Born on: " .. game.tick .. " ticks. \nSmarts: " .. stats.smarts})
+
             -- itemstack = outputinventory[1]
 
             -- itemstack.tags = stats

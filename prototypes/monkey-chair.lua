@@ -219,7 +219,7 @@ data:extend({
       }
     },
     collision_box = {{-0.35, -0.35}, {0.35, 0.35}},
-    selection_box = {{-0.5, -0.5}, {0.25, 0.5}},
+    selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     damaged_trigger_effect = hit_effects.entity(),
     fast_replaceable_group = "container",
     inventory_size = 1,
