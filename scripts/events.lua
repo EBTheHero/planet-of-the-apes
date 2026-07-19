@@ -1,10 +1,20 @@
 local monkeybreeder = require("scripts.monkey_breeder")
 local monkeycombinator = require("scripts.monkey_combinator")
 
-
+function freshen_up_monkey(monkey)
+    monkey.set_stack({name = "monkey", count = 1, tags = monkey.tags, custom_description = monkey.custom_description})
+end
 
 script.on_event(defines.events.on_script_trigger_effect, function(event)
-
+    if (event.effect_id == "rest-dummy-spoil") then
+        -- spoil effect in prototypes should only target monkey-chairs
+        if (event.target_entity.valid) then
+            itemstack = event.target_entity.get_inventory(defines.inventory.chest)[1]
+            if (itemstack.valid_for_read and itemstack.name == "tired-monkey") then
+                freshen_up_monkey(itemstack)
+            end
+        end
+    end
 end)
 
 script.on_event({

@@ -24,7 +24,7 @@ data:extend({
     subgroup  = 'energy',
     order     = 'z'     ,
     
-    stack_size   =  50     ,
+    stack_size   =  1     ,
 
     -- The weight (in grams) determines how many fit on a rocket.
     weight = 1000,

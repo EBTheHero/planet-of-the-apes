@@ -5,6 +5,7 @@ Monkeys can get tired and need rest and feeding
 Monkeys need to rest inside a building
 - Can the building be biome locked, encouranging players to make trains that carry monkeys?
 - Monkeys have a chance of dying of old age when resting
+- resting could be done with one structure with a recipe with no ingredient, and the result is an item with instant spoil, and it's trigger affects all monkey-chairs around 
 
 Food is from agricultural towers
 
@@ -19,7 +20,7 @@ Monkey's Minutia increases productivity
 - Makes products required for creative work
 - take ingredients from Brawn work
 - Since ingredients from Brawn work is hard to get, productivity is encouraged
-- MIND THE 300% PRODUCTIVITY LIMIT
+- MIND THE 300% PRODUCTIVITY LIMIT (or check EffectReceiver.productivity_limits and REcipePrototype.maximum_productivity)
 
 Monkey's Brawn increases speed of work
 - They work in fixed mines (like oil wells)

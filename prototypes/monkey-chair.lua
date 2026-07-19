@@ -200,6 +200,7 @@ data:extend({
     name = "monkey-chair",
     icon = "__base__/graphics/icons/steel-chest.png",
     flags = {"placeable-neutral", "player-creation"},
+    trigger_target_mask = {"rest-target"},
     minable = {mining_time = 0.2, result = "monkey-chair"},
     max_health = 350,
     corpse = "steel-chest-remnants",
