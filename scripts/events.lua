@@ -59,10 +59,31 @@ script.on_event({
             chest1 = slot1,
             chest2 = slot2
         }
-
-
     end
 
+    if entity.name == "monkey-workstation" then
+
+        beacon = entity.surface.create_entity{name = "monkey-beacon-interface", position = entity.position, force = entity.force, raise_built = true}
+
+        remote.call("beacon-interface", "set_effect", beacon.unit_number, "quality", 76)
+
+        storage.monkey_workstations = storage.monkey_workstations or {}
+
+        offset = {x = 0, y = 2}
+        spawn_position = {entity.position.x + offset.x, entity.position.y + offset.y}
+        chest1 = entity.surface.create_entity{name = "monkey-chair", position = spawn_position, force = entity.force, raise_built = true}
+
+        chest1.destructible = false
+        chest1.minable_flag = false
+
+        storage.monkey_workstations[entity.unit_number] = {
+            entity = entity,
+            item_stack = chest1.get_inventory(defines.inventory.chest)[1],
+            beacon = beacon,
+            monkey_chair = chest1,
+            previous_read_value = false
+        }
+    end
     
     if entity.name == "monkey-analyzer" then
 
@@ -113,6 +134,18 @@ script.on_event({
       end
       storage.monkey_chairs[entity.unit_number] = nil
       game.print("Entity mined: " .. entity.name)
+    end
+
+    if entity.name == "monkey-workstation" then
+
+        workstation_data = storage.monkey_workstations[entity.unit_number]
+        if (workstation_data ~= nil) then
+            workstation_data.beacon.destroy{raise_destroy = true}
+            workstation_data.monkey_chair.destroy{raise_destroy = true}
+            storage.monkey_workstations[entity.unit_number] = nil
+        end
+
+
     end
 end
 )

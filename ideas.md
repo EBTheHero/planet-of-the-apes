@@ -38,6 +38,8 @@ Pollution
 
 Modding notes:
 Recipes that transfer tags from ingredient to product item-with-tags will [not be implemented ](https://forums.factorio.com/viewtopic.php?p=644838&hilit=Tags#p644838)
+If too many crafting machine checks, use https://github.com/kryzeth/kry_stdlib/blob/master/stdlib/scripts/spread-on-tick.lua
+
 
 Graphics:
 https://github.com/malcolmriley/unused-renders for icons
