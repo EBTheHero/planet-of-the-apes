@@ -16,10 +16,13 @@ function workstation.tick(tick)
 
             if (stack.valid_for_read) then
                 if (stack.name == "monkey") then
-                    smarts = stack.get_tag("smarts")
-                    remote.call("beacon-interface", "set_effect", data.beacon.unit_number, "quality", smarts)
+                    creativitity = stack.get_tag("smarts")
+                    meticulousness = stack.get_tag("meticulousness")
+                    endurance = stack.get_tag("endurance")
+                    remote.call("beacon-interface", "set_effects", data.beacon.unit_number, {quality = creativitity, productivity = meticulousness, consumption = endurance, speed = 0, pollution = 0})
                 else
-                    remote.call("beacon-interface", "set_effect", data.beacon.unit_number, "quality", 0)
+                    remote.call("beacon-interface", "set_effects", data.beacon.unit_number, {quality = 0, productivity = 0, consumption = 0, speed = 0, pollution = 0})
+                
                 end
             else
                 remote.call("beacon-interface", "set_effect", data.beacon.unit_number, "quality", 0)

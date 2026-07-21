@@ -1,4 +1,4 @@
-
+require("scripts.lib")
 
 
 
@@ -13,49 +13,46 @@ function breeder_has_monkeys(breeder_data)
     end
 end
 
-function breed(monkey1, monkey2)
-
-    if (monkey1.get_tag("smarts") == nil) then
-        stats = {smarts = 100, creation_time = game.tick}
-        monkey1.tags = stats
-        monkey1.custom_description = "Born on: " .. game.tick .. " ticks. \nSmarts: " .. stats.smarts
-    end
-
-    if (monkey2.get_tag("smarts") == nil) then
-        stats = {smarts = 100, creation_time = game.tick}
-        monkey2.tags = stats
-        monkey2.custom_description = "Born on: " .. game.tick .. " ticks. \nSmarts: " .. stats.smarts
-    end
-
-    smarts1 = monkey1.get_tag("smarts")
-    smarts2 = monkey2.get_tag("smarts")
-
-    -- random range between smarts1 and smarts2
-    newSmart = math.random() * (math.max(smarts1, smarts2) - math.min(smarts1, smarts2)) + math.min(smarts1, smarts2)
+function breed_two_stats(n1, n2)
+    n3 = math.random() * (math.max(n1, n2) - math.min(n1, n2)) + math.min(n1, n2)
 
     -- 10% chance to mutate
     if (math.random() < 0.1) then
         -- range between 0.8 and 1.2
         r = math.random() * 0.4 + 0.8
-        newSmart = newSmart * r
+        n3 = n3 * r
     end
-    newSmart = math.floor(newSmart)
-    statsTags = {smarts = newSmart, creation_time = game.tick}
+    n3 = math.floor(n3)
+    return n3
+end
+
+function breed(monkey1, monkey2)
+
+    verify_monkey(monkey1)
+    verify_monkey(monkey2)
+
+    smarts1 = monkey1.get_tag("smarts")
+    smarts2 = monkey2.get_tag("smarts")
+    newSmart = breed_two_stats(smarts1, smarts2)
+
+    meticulousness1 = monkey1.get_tag("meticulousness")
+    meticulousness2 = monkey2.get_tag("meticulousness")
+    newMeticulousness = breed_two_stats(meticulousness1, meticulousness2)
+
+    creativity1 = monkey1.get_tag("creativity")
+    creativity2 = monkey2.get_tag("creativity")
+    newCreativity = breed_two_stats(creativity1, creativity2)
+
+    endurance1 = monkey1.get_tag("endurance")
+    endurance2 = monkey2.get_tag("endurance")
+    newEndurance = breed_two_stats(endurance1, endurance2)
+
+    statsTags = {smarts = newSmart, meticulousness = newMeticulousness, creativity = newCreativity, endurance = newEndurance, creation_time = game.tick}
 
     return statsTags
 end
 
-function reduce_monkey_health(monkey, health)
 
-    if monkey.valid and monkey.name == "monkey" then
-        if monkey.health - health <= 0 then
-            -- monkey is spent and becomes tired
-            monkey.set_stack({name = "tired-monkey", count = 1, tags = monkey.tags, custom_description = monkey.custom_description})
-        else
-            monkey.health = monkey.health - 0.05
-        end
-    end
-end
 
 local test = {}
 
@@ -68,14 +65,14 @@ function test.tick(tick)
         entity.disabled_by_script  = not breeder_has_monkeys(data)
 
         -- on craft
-        if entity and entity.valid and data.products_finished < entity.products_finished then
+        if entity and entity.valid and data.products_finished < entity.products_finished and not entity.disabled_by_script then
            data.products_finished = entity.products_finished
 
             outputinventory =entity.get_inventory(defines.inventory.crafter_trash) 
             
             stats = breed(data.slot1, data.slot2)
             
-            outputinventory.insert({name = "monkey", count = 1, tags = stats, custom_description = "Born on: " .. game.tick .. " ticks. \nSmarts: " .. stats.smarts})
+            outputinventory.insert({name = "monkey", count = 1, tags = stats, custom_description = make_description_from_stats(stats)})
 
             reduce_monkey_health(data.slot1, 0.05)
             reduce_monkey_health(data.slot2, 0.05)

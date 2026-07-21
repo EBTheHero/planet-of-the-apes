@@ -29,17 +29,26 @@ Monkey's Brawn increases speed of work
 
 Each stats represent a specific work
 
+Monkey death
+- Monkeys have a chance of dying at work (or have age)
+- Monkey turn into corpses (cannot stack nor recycled)
+- Monkey can be cremated (produces pollution) that can be turned to ash
+- Ash can be recycled
+
 
 Pollution
 - Pollution makes sick monkeys
 - Monkey work does not create pollution
 
+Rewards
+- Something that helps with spoilables
+- What could a monkey on a space platform do? Control it's speed?
 
 
 Modding notes:
 Recipes that transfer tags from ingredient to product item-with-tags will [not be implemented ](https://forums.factorio.com/viewtopic.php?p=644838&hilit=Tags#p644838)
-If too many crafting machine checks, use https://github.com/kryzeth/kry_stdlib/blob/master/stdlib/scripts/spread-on-tick.lua
-
+If too many crafting machine checks, use Factorio standard lib spread-across-ticks
+Use Things for the analyzer
 
 Graphics:
 https://github.com/malcolmriley/unused-renders for icons

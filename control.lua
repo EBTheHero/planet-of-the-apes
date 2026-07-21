@@ -1,6 +1,6 @@
 local monkeybreeder = require("scripts.monkey_breeder")
 local monkeycombinator = require("scripts.monkey_combinator")
-local monkeyworkstation = require("scripts.monkey-workstation")
+local monkeyworkstation = require("scripts.monkey_workstation")
 
 -- All the on tick events are handled here.
 script.on_event(defines.events.on_tick,
