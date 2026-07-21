@@ -25,3 +25,30 @@ function verify_monkey(itemstack)
         itemstack.custom_description = make_description_from_stats(stats)
     end
 end
+
+function get_bits(number)
+  local bits = {}
+  for i = 0, 15 do
+      bits[i + 1] = bit32.band(number, bit32.lshift(1, i)) ~= 0 and 1 or 0
+  end
+  return bits
+end
+
+function breeder_has_monkeys(breeder_data)
+    slotonevalid = breeder_data.slot1.valid and breeder_data.slot1.valid_for_read
+    slottwovalid = breeder_data.slot2.valid and breeder_data.slot2.valid_for_read
+
+    if slotonevalid and slottwovalid then
+        return breeder_data.slot1.name == "monkey" and breeder_data.slot2.name == "monkey"
+    else
+        return false
+    end
+end
+
+function itemstack_is_monkey(itemstack)
+    if itemstack.valid and itemstack.valid_for_read then
+        return itemstack.name == "monkey"
+    else
+        return false
+    end
+end

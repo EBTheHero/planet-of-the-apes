@@ -65,8 +65,6 @@ script.on_event({
 
         beacon = entity.surface.create_entity{name = "monkey-beacon-interface", position = entity.position, force = entity.force, raise_built = true}
 
-        remote.call("beacon-interface", "set_effect", beacon.unit_number, "quality", 76)
-
         storage.monkey_workstations = storage.monkey_workstations or {}
 
         offset = {x = 0, y = 2}

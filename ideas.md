@@ -50,6 +50,8 @@ Rewards
 - Something that helps with spoilables
 - What could a monkey on a space platform do? Control it's speed?
 
+TODO:
+- Have the monkey analyzer have a EntityPrototype.stateless_visualisation
 
 Modding notes:
 Recipes that transfer tags from ingredient to product item-with-tags will [not be implemented ](https://forums.factorio.com/viewtopic.php?p=644838&hilit=Tags#p644838)

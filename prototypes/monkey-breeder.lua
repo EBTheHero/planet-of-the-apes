@@ -21,7 +21,7 @@ data:extend({
     stack_size = 50,
     random_tint_color = item_tints.iron_rust
   }
-    })
+})
 
 local monkey_breeder = table.deepcopy(data.raw["assembling-machine"]["assembling-machine-1"]);
 

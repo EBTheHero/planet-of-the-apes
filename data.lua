@@ -9,6 +9,7 @@ require("prototypes.monkey-chair")
 require("prototypes.monkey-analyzer")
 require("prototypes.monkey-rest-tower")
 require("prototypes.monkey-workstation")
+require("prototypes.items")
 
 
 --And these two make defining common file paths much shorter.

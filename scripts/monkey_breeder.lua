@@ -2,16 +2,7 @@ require("scripts.lib")
 
 
 
-function breeder_has_monkeys(breeder_data)
-    slotonevalid = breeder_data.slot1.valid and breeder_data.slot1.valid_for_read
-    slottwovalid = breeder_data.slot2.valid and breeder_data.slot2.valid_for_read
 
-    if slotonevalid and slottwovalid then
-        return breeder_data.slot1.name == "monkey" and breeder_data.slot2.name == "monkey"
-    else
-        return false
-    end
-end
 
 function breed_two_stats(n1, n2)
     n3 = math.random() * (math.max(n1, n2) - math.min(n1, n2)) + math.min(n1, n2)
