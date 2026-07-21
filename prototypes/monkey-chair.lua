@@ -226,6 +226,8 @@ data:extend({
     inventory_size = 1,
     impact_category = "metal",
     icon_draw_specification = {scale = 0.7},
+    circuit_connector = circuit_connector_definitions["chest"],
+    circuit_wire_max_distance = default_circuit_wire_max_distance,
     picture =
     {
       layers =

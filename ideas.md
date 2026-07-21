@@ -30,9 +30,15 @@ Monkey's Brawn increases speed of work
 Each stats represent a specific work
 
 Monkey death
+- TODO: make monkeys not recyclable
 - Monkeys have a chance of dying at work (or have age)
+- Monkeys can be intentionally killed in a slaughter house
 - Monkey turn into corpses (cannot stack nor recycled)
-- Monkey can be cremated (produces pollution) that can be turned to ash
+- Monkey can be cremated (produces pollution) that can be turned to ash. It takes oil/gas
+    - How do I discourage players from making a sea of steel chests?
+        - Steel chests is not automation
+        - Monkeys are not stackable, so they should fill the 48 slots of a steel chest fast
+        - If they breed a ton of monkeys (which is the intention), those chests should fill fast
 - Ash can be recycled
 
 

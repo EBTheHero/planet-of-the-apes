@@ -21,10 +21,18 @@ function combinator.tick(tick)
 
             if (stack.valid_for_read) then
                 if (stack.name == "monkey" or stack.name == "tired-monkey") then
-                    data.control_behavior_section.set_slot(1, {value = "signal-C", min = stack.get_tag("smarts")})
+                    stats = stack.tags
+
+                    data.control_behavior_section.set_slot(1, {value = "signal-C", min = stats["creativity"]})
+                    data.control_behavior_section.set_slot(2, {value = "signal-S", min = stats["smarts"]})
+                    data.control_behavior_section.set_slot(3, {value = "signal-M", min = stats["meticulousness"]})
+                    data.control_behavior_section.set_slot(4, {value = "signal-E", min = stats["endurance"]})
                 end
             else
                 data.control_behavior_section.clear_slot(1)
+                data.control_behavior_section.clear_slot(2)
+                data.control_behavior_section.clear_slot(3)
+                data.control_behavior_section.clear_slot(4)
             end
         end
     end

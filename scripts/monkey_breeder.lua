@@ -18,9 +18,9 @@ function breed_two_stats(n1, n2)
 
     -- 10% chance to mutate
     if (math.random() < 0.1) then
-        -- range between 0.8 and 1.2
-        r = math.random() * 0.4 + 0.8
-        n3 = n3 * r
+        -- range between -10 and +10
+        r = math.random() * 20 - 10
+        n3 = n3 + r
     end
     n3 = math.floor(n3)
     return n3
