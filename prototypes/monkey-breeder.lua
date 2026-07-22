@@ -29,7 +29,7 @@ monkey_breeder.name = "monkey-breeder"
 
 monkey_breeder.crafting_categories = {"monkey-breeding"}
 monkey_breeder.trash_inventory_size = 1
-monkey_breeder.fixed_recipe = "monkey"
+monkey_breeder.fixed_recipe = "monkey-embryon"
 
 data:extend({
     monkey_breeder,

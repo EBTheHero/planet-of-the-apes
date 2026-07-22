@@ -131,7 +131,7 @@ local dummycombinator = table.deepcopy(data.raw["constant-combinator"]["constant
 
 dummycombinator.name = "monkey-analyzer-combinator"
 dummycombinator.selection_box = {{-0.5, -0.5}, {0.5, 0.5}}
-dummycombinator.integration_patch_render_layer = "object"
+dummycombinator.integration_patch_render_layer = "object" -- make sure it's rendered on top
 --dummycombinator.selectable_in_game = false
 --dummycombinator.selection_box = {{-0, -0}, {0, 0}}
 

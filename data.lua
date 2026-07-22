@@ -9,6 +9,7 @@ require("prototypes.monkey-chair")
 require("prototypes.monkey-analyzer")
 require("prototypes.monkey-rest-tower")
 require("prototypes.monkey-workstation")
+require("prototypes.monkey-growth-vat")
 require("prototypes.items")
 
 

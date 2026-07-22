@@ -7,6 +7,7 @@ monkey_workstation.crafting_categories = {"monkey-breeding"}
 monkey_workstation.module_slots = 0
 
 monkey_workstation.allowed_module_categories = {"beacon-interface--module-category"} 
+monkey_workstation.minable = { mining_time = 0.5, result = "monkey-workstation" },
 
 -- Hide alt view modules
 -- monkey_workstation.icons_positioning =   {

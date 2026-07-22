@@ -1,6 +1,7 @@
 local monkeybreeder = require("scripts.monkey_breeder")
 local monkeycombinator = require("scripts.monkey_combinator")
 
+
 function freshen_up_monkey(monkey)
     monkey.set_stack({name = "monkey", count = 1, tags = monkey.tags, custom_description = monkey.custom_description})
 end
@@ -147,3 +148,54 @@ script.on_event({
     end
 end
 )
+
+script.on_event(
+	prototypes.recipe["novella"].on_crafted_event
+, function(event)
+    machineID = event.entity.unit_number
+    workstation_data = storage.monkey_workstations[machineID]
+    item_stack = workstation_data.item_stack
+    reduce_monkey_health(item_stack, 0.05)
+end)
+
+script.on_event(
+	prototypes.recipe["monkey-accelerated-growth"].on_crafted_event
+, function(event)
+        local data = storage.monkey_factories[event.entity.unit_number]
+        -- on craft
+        if event.entity and event.entity.valid then
+
+            outputinventory = event.entity.get_inventory(defines.inventory.crafter_trash) 
+            
+            -- stats = breed(data.slot1, data.slot2)
+            
+            -- outputinventory.insert({name = "monkey-embryon", count = 1, tags = stats, custom_description = make_description_from_stats(stats)})
+
+            -- reduce_monkey_health(data.slot1, 0.05)
+            -- reduce_monkey_health(data.slot2, 0.05)
+
+            
+        
+        end
+end)
+
+script.on_event(
+	prototypes.recipe["monkey-embryon"].on_crafted_event
+, function(event)
+        local data = storage.monkey_factories[event.entity.unit_number]
+        -- on craft
+        if event.entity and event.entity.valid then
+
+            outputinventory = event.entity.get_inventory(defines.inventory.crafter_trash) 
+            
+            stats = breed(data.slot1, data.slot2)
+            
+            outputinventory.insert({name = "monkey-embryon", count = 1, tags = stats, custom_description = make_description_from_stats(stats)})
+
+            reduce_monkey_health(data.slot1, 0.05)
+            reduce_monkey_health(data.slot2, 0.05)
+
+            
+        
+        end
+end)

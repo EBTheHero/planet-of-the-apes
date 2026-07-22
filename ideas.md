@@ -50,8 +50,13 @@ Rewards
 - Something that helps with spoilables
 - What could a monkey on a space platform do? Control it's speed?
 
+
+Other:
+There's a "moshine - datacell-empty.png" that's a usb stick and I want a recipe that has a 50% chance of failure caus of it
+
 TODO:
-- Have the monkey analyzer have a EntityPrototype.stateless_visualisation
+- Have the monkey analyzer have a EntityPrototype.stateless_visualisation to animate it
+- place hide-alt-info onto stuff
 
 Modding notes:
 Recipes that transfer tags from ingredient to product item-with-tags will [not be implemented ](https://forums.factorio.com/viewtopic.php?p=644838&hilit=Tags#p644838)

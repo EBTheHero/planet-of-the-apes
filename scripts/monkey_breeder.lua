@@ -22,23 +22,23 @@ function breed(monkey1, monkey2)
     verify_monkey(monkey1)
     verify_monkey(monkey2)
 
-    smarts1 = monkey1.get_tag("smarts")
-    smarts2 = monkey2.get_tag("smarts")
-    newSmart = breed_two_stats(smarts1, smarts2)
+    local smarts1 = monkey1.get_tag("smarts")
+    local smarts2 = monkey2.get_tag("smarts")
+    local newSmart = breed_two_stats(smarts1, smarts2)
 
-    meticulousness1 = monkey1.get_tag("meticulousness")
-    meticulousness2 = monkey2.get_tag("meticulousness")
-    newMeticulousness = breed_two_stats(meticulousness1, meticulousness2)
+    local meticulousness1 = monkey1.get_tag("meticulousness")
+    local meticulousness2 = monkey2.get_tag("meticulousness")
+    local newMeticulousness = breed_two_stats(meticulousness1, meticulousness2)
 
-    creativity1 = monkey1.get_tag("creativity")
-    creativity2 = monkey2.get_tag("creativity")
-    newCreativity = breed_two_stats(creativity1, creativity2)
+    local creativity1 = monkey1.get_tag("creativity")
+    local creativity2 = monkey2.get_tag("creativity")
+    local newCreativity = breed_two_stats(creativity1, creativity2)
 
-    endurance1 = monkey1.get_tag("endurance")
-    endurance2 = monkey2.get_tag("endurance")
-    newEndurance = breed_two_stats(endurance1, endurance2)
+    local endurance1 = monkey1.get_tag("endurance")
+    local endurance2 = monkey2.get_tag("endurance")
+    local newEndurance = breed_two_stats(endurance1, endurance2)
 
-    statsTags = {smarts = newSmart, meticulousness = newMeticulousness, creativity = newCreativity, endurance = newEndurance, creation_time = game.tick}
+    local statsTags = {smarts = newSmart, meticulousness = newMeticulousness, creativity = newCreativity, endurance = newEndurance, creation_time = game.tick}
 
     return statsTags
 end
@@ -54,28 +54,6 @@ function test.tick(tick)
         local entity = data.entity
     
         entity.disabled_by_script  = not breeder_has_monkeys(data)
-
-        -- on craft
-        if entity and entity.valid and data.products_finished < entity.products_finished and not entity.disabled_by_script then
-           data.products_finished = entity.products_finished
-
-            outputinventory =entity.get_inventory(defines.inventory.crafter_trash) 
-            
-            stats = breed(data.slot1, data.slot2)
-            
-            outputinventory.insert({name = "monkey", count = 1, tags = stats, custom_description = make_description_from_stats(stats)})
-
-            reduce_monkey_health(data.slot1, 0.05)
-            reduce_monkey_health(data.slot2, 0.05)
-            -- itemstack = outputinventory[1]
-
-            -- itemstack.tags = stats
-            -- itemstack.custom_description = "Born on: " .. game.tick .. " ticks. \nSmarts: " .. stats.smarts
-        
-            
-        
-        end
-        ::continue::
     end
 end
 
