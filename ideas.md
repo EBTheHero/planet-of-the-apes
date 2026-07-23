@@ -49,6 +49,8 @@ Pollution
 Rewards
 - Something that helps with spoilables
 - What could a monkey on a space platform do? Control it's speed?
+- One of the buildings should be useful somewhere off the planet
+- An infinite tech?
 
 
 Other:

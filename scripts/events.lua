@@ -101,6 +101,19 @@ script.on_event({
             canread = entity.get_inventory(defines.inventory.chest)[1].valid_for_read
         }
     end
+
+    if entity.name == "growth-vat" then
+
+
+        storage.growth_vats = storage.growth_vats or {}
+
+        storage.growth_vats[entity.unit_number] = {
+            entity = entity,
+            previous_tick_disabled = true
+        }
+
+        entity.disabled_by_script = true
+    end
 end
 )
 
@@ -143,8 +156,13 @@ script.on_event({
             workstation_data.monkey_chair.destroy{raise_destroy = true}
             storage.monkey_workstations[entity.unit_number] = nil
         end
+    end
 
-
+    if entity.name == "growth-vat" then
+        growth_vats = storage.growth_vats[entity.unit_number]
+        if (growth_vats ~= nil) then
+            storage.growth_vats[entity.unit_number] = nil
+        end
     end
 end
 )
@@ -161,15 +179,24 @@ end)
 script.on_event(
 	prototypes.recipe["monkey-accelerated-growth"].on_crafted_event
 , function(event)
-        local data = storage.monkey_factories[event.entity.unit_number]
+        local data = storage.growth_vats[event.entity.unit_number]
         -- on craft
         if event.entity and event.entity.valid then
 
-            outputinventory = event.entity.get_inventory(defines.inventory.crafter_trash) 
+            local stats = data.consumed_embryon_tags
+            local outputinventory = event.entity.get_inventory(defines.inventory.crafter_output) 
             
             -- stats = breed(data.slot1, data.slot2)
             
-            -- outputinventory.insert({name = "monkey-embryon", count = 1, tags = stats, custom_description = make_description_from_stats(stats)})
+            outputinventory[1].tags = stats
+            outputinventory[1].custom_description = make_description_from_stats(stats)
+
+            local input_stack = event.entity.get_inventory(defines.inventory.crafter_input)[1]
+            
+            if (input_stack.valid_for_read and input_stack.name == "monkey-embryon") then
+               -- As it finishes, we need to store the new consumed embryon
+                data.consumed_embryon_tags = input_stack.tags
+            end
 
             -- reduce_monkey_health(data.slot1, 0.05)
             -- reduce_monkey_health(data.slot2, 0.05)
@@ -186,11 +213,18 @@ script.on_event(
         -- on craft
         if event.entity and event.entity.valid then
 
-            outputinventory = event.entity.get_inventory(defines.inventory.crafter_trash) 
+            outputinventory = event.entity.get_inventory(defines.inventory.crafter_output) 
             
             stats = breed(data.slot1, data.slot2)
             
-            outputinventory.insert({name = "monkey-embryon", count = 1, tags = stats, custom_description = make_description_from_stats(stats)})
+            if (stats == nil) then
+                return
+            end
+
+            stats.name = get_name()
+
+            outputinventory[1].tags = stats
+            outputinventory[1].custom_description = make_description_from_stats(stats)
 
             reduce_monkey_health(data.slot1, 0.05)
             reduce_monkey_health(data.slot2, 0.05)

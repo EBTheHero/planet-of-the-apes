@@ -169,8 +169,7 @@ data:extend({
         {type="item", name = "petri-dish", amount = 1}
       },
 
-    --results = {{type = 'item', name = 'monkey', amount = 1}},
-    results = {},
+    results = {{type = 'item', name = 'monkey-embryon', amount = 1}},
     energy_required = 1,
     raise_on_crafted = true,
   },
@@ -181,7 +180,8 @@ data:extend({
     enabled = true,
     categories = {"monkey-breeding"},
     ingredients = {
-        {type="item", name = "monkey-embryon", amount = 1}
+        {type="item", name = "monkey-embryon", amount = 1},
+        {type="item", name = "nutrients", amount = 100}
       },
 
     results = {{type = 'item', name = 'monkey', amount = 1}},
@@ -211,3 +211,10 @@ if not data.raw.recipe["glass"] then
     },
   })
 end
+
+  data:extend({
+    {
+      type = "proxy-container",
+      name = "my-proxy-container",
+    },
+  })

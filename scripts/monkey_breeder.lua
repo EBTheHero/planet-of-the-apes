@@ -3,7 +3,6 @@ require("scripts.lib")
 
 
 
-
 function breed_two_stats(n1, n2)
     n3 = math.random() * (math.max(n1, n2) - math.min(n1, n2)) + math.min(n1, n2)
 
@@ -19,8 +18,12 @@ end
 
 function breed(monkey1, monkey2)
 
-    verify_monkey(monkey1)
-    verify_monkey(monkey2)
+    local valid1 = verify_monkey(monkey1)
+    local valid2 = verify_monkey(monkey2)
+
+    if (not valid1 or not valid2) then
+        return
+    end
 
     local smarts1 = monkey1.get_tag("smarts")
     local smarts2 = monkey2.get_tag("smarts")
@@ -38,7 +41,7 @@ function breed(monkey1, monkey2)
     local endurance2 = monkey2.get_tag("endurance")
     local newEndurance = breed_two_stats(endurance1, endurance2)
 
-    local statsTags = {smarts = newSmart, meticulousness = newMeticulousness, creativity = newCreativity, endurance = newEndurance, creation_time = game.tick}
+    local statsTags = {smarts = newSmart, meticulousness = newMeticulousness, creativity = newCreativity, endurance = newEndurance, creation_time = game.tick, id = math.random(0, 100000000)}
 
     return statsTags
 end
