@@ -106,6 +106,20 @@ data:extend({
     drop_sound = item_sounds.mechanical_inventory_move,
     stack_size = 100
   },
+    {
+    type = "item",
+    name = "banana",
+    icon = "__planet-of-the-apes__/sprite/icons/banana-icon.png",
+    subgroup = "intermediate-product",
+    color_hint = { text = "1" },
+    order = "a[basic-intermediates]-a[iron-gear-wheel]",
+    inventory_move_sound = item_sounds.mechanical_inventory_move,
+    pick_sound = item_sounds.mechanical_inventory_pickup,
+    drop_sound = item_sounds.mechanical_inventory_move,
+    stack_size = 100,
+    spoil_ticks = 3 * 60 * 60, -- 3 minutes lmao
+    spoil_result = "spoilage"
+  },
 
 })
 

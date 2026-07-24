@@ -52,5 +52,6 @@ banana_tree.growth_ticks = 5 * 60 * 60
 banana_tree.variations = variation
 banana_tree.growth_variations = nil
 banana_tree.growth_mounds = {banana_tree.growth_mounds[1]}
+banana_tree.minable.results = {{type = "item", name = "banana", amount = 50}},
 
 data:extend({banana_tree})
