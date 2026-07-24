@@ -11,6 +11,7 @@ require("prototypes.monkey-rest-tower")
 require("prototypes.monkey-workstation")
 require("prototypes.monkey-growth-vat")
 require("prototypes.items")
+require("prototypes.banana-tree")
 
 
 --And these two make defining common file paths much shorter.
