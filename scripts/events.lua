@@ -109,10 +109,12 @@ script.on_event({
 
         storage.growth_vats[entity.unit_number] = {
             entity = entity,
-            previous_tick_disabled = true
+            previous_tick_disabled = true,
+            previous_tick_crafting = false,
         }
 
         entity.disabled_by_script = true
+
     end
 end
 )
@@ -174,6 +176,14 @@ script.on_event(
     workstation_data = storage.monkey_workstations[machineID]
     item_stack = workstation_data.item_stack
     reduce_monkey_health(item_stack, 0.05)
+end)
+
+script.on_event(
+	defines.events.on_tower_planted_seed
+, function(event)
+    local tower = event.tower
+    local itemstack = tower.get_inventory(defines.inventory.agricultural_tower_input)[1]
+    game.print("plant")
 end)
 
 script.on_event(

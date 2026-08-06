@@ -6,6 +6,8 @@ Monkeys need to rest inside a building
 - Can the building be biome locked, encouranging players to make trains that carry monkeys?
 - Monkeys have a chance of dying of old age when resting
 - resting could be done with one structure with a recipe with no ingredient, and the result is an item with instant spoil, and it's trigger affects all monkey-chairs around 
+- The resting shouldn't be instant. It should have a chance to heal the monkey
+- That one structure is a world tree. It takes in bananas and produces random particles that has a chance to hit monkey-chairs
 
 Food is from agricultural towers
 
@@ -32,7 +34,7 @@ Each stats represent a specific work
 Monkey death
 - TODO: make monkeys not recyclable
 - Monkeys have a chance of dying at work (or have age)
-- Monkeys can be intentionally killed in a slaughter house
+- Monkeys can be intentionally killed in a slaughter house, using ammo as a resource
 - Monkey turn into corpses (cannot stack nor recycled)
 - Monkey can be cremated (produces pollution) that can be turned to ash. It takes oil/gas
     - How do I discourage players from making a sea of steel chests?
@@ -41,6 +43,10 @@ Monkey death
         - If they breed a ton of monkeys (which is the intention), those chests should fill fast
 - Ash can be recycled
 
+Production:
+- Paper: Wood needs to be turned into pulp then into paper
+- Steam clouds to be harvested and turned into water
+- Power byproduct (like Steam)
 
 Pollution
 - Pollution makes sick monkeys
@@ -55,6 +61,9 @@ Rewards
 
 Other:
 There's a "moshine - datacell-empty.png" that's a usb stick and I want a recipe that has a 50% chance of failure caus of it
+Monkeys have gender/sex. You can only breed male with females (that's only a reason to add transgenderism)
+
+
 
 TODO:
 - Have the monkey analyzer have a EntityPrototype.stateless_visualisation to animate it

@@ -1,11 +1,14 @@
 local test = {}
 
+
 function test.get_is_crafting(entity)
     return entity.is_crafting()
 end
 
 function test.set_disabled(entity, y, z)    
-    entity.disabled_by_script  = y and z
+    if test.get_disabled(entity) ~= (y and z) then
+        entity.disabled_by_script = y and z
+    end
 end
 
 function test.get_disabled(entity)
