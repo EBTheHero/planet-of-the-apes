@@ -29,6 +29,13 @@ Monkey's Brawn increases speed of work
 - These mines have infinite resources, but do not benifit from mining productivity
 - Since it takes effort to place more mines (and trains), encourages the player to breed faster monkeys
 
+Monkey's Smarts
+- Solving Captchas lmao
+- Solving Captchas require power (USB stick with Captchas)
+- Science pack requires a lot of solved Captchas
+- A smart monkey increases it's solving speed (thus producing more captchas with less power)
+- The machine to produce Captchas require a ton of power
+
 Each stats represent a specific work
 
 Monkey death
