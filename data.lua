@@ -17,7 +17,7 @@ require("prototypes.banana-tree")
 
 --And these two make defining common file paths much shorter.
 local function sprite(name)
-  return '__planet-of-the-apes__/sprite/'..name
+  return '__planet-of-the-apes__/sprites/'..name
   end
   
 local function sound(name)

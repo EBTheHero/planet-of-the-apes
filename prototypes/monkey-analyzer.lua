@@ -3,7 +3,7 @@ local sounds = require("__base__.prototypes.entity.sounds")
 
 local pipe_pictures = {
   north = {
-    filename = "__planet-of-the-apes__/sprite/buildings/research-server/research-server-k-pipe-N.png",
+    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-N.png",
     priority = "extra-high",
     width = 71,
     height = 38,
@@ -11,7 +11,7 @@ local pipe_pictures = {
     scale = 0.5,
   },
   east = {
-    filename = "__planet-of-the-apes__/sprite/buildings/research-server/research-server-k-pipe-E.png",
+    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-E.png",
     priority = "extra-high",
     width = 42,
     height = 76,
@@ -19,7 +19,7 @@ local pipe_pictures = {
     scale = 0.5,
   },
   south = {
-    filename = "__planet-of-the-apes__/sprite/buildings/research-server/research-server-k-pipe-S.png",
+    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-S.png",
     priority = "extra-high",
     width = 88,
     height = 61,
@@ -27,7 +27,7 @@ local pipe_pictures = {
     scale = 0.5,
   },
   west = {
-    filename = "__planet-of-the-apes__/sprite/buildings/research-server/research-server-k-pipe-W.png",
+    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-W.png",
     priority = "extra-high",
     width = 39,
     height = 73,
@@ -50,7 +50,7 @@ data:extend({
   {
     type = "item",
     name = "monkey-analyzer",
-    icon = "__planet-of-the-apes__/sprite/icons/entities/research-server.png",
+    icon = "__planet-of-the-apes__/sprites/icons/entities/research-server.png",
     subgroup = "production-machine",
     order = "f3",
     place_result = "monkey-analyzer",
@@ -59,7 +59,7 @@ data:extend({
   {
     type = "container",
     name = "monkey-analyzer",
-    icon = "__planet-of-the-apes__/sprite/icons/entities/research-server.png",
+    icon = "__planet-of-the-apes__/sprites/icons/entities/research-server.png",
     flags = { "placeable-neutral", "placeable-player", "player-creation" },
     minable = { mining_time = 0.5, result = "monkey-analyzer" },
     collision_box = { { -1.25, -1.25 }, { 1.25, 1.25 } },
@@ -83,7 +83,7 @@ data:extend({
     {
         layers = {
                 {
-                    filename = "__planet-of-the-apes__/sprite/buildings/research-server/research-server-base.png",
+                    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-base.png",
                     priority = "high",
                     width = 256,
                     height = 256,
@@ -94,7 +94,7 @@ data:extend({
                     scale = 0.5,
                 },
                 {
-                    filename = "__planet-of-the-apes__/sprite/buildings/research-server/research-server-shadow.png",
+                    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-shadow.png",
                     priority = "high",
                     width = 256,
                     height = 256,
@@ -109,7 +109,7 @@ data:extend({
 
     water_reflection = {
         pictures = {
-          filename = "__planet-of-the-apes__/sprite/buildings/research-server/research-server-reflection.png",
+          filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-reflection.png",
           priority = "extra-high",
           width = 40,
           height = 40,
