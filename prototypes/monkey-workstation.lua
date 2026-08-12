@@ -6,7 +6,7 @@ monkey_workstation.localised_name ="monkey_workstation"
 monkey_workstation.crafting_categories = {"monkey-breeding"}
 monkey_workstation.module_slots = 0
 
-monkey_workstation.allowed_module_categories = {"beacon-interface--module-category"} 
+monkey_workstation.allowed_module_categories = nil 
 monkey_workstation.minable = { mining_time = 0.5, result = "monkey-workstation" },
 
 -- Hide alt view modules
@@ -28,9 +28,4 @@ monkey_workstation_item.place_result = "monkey-workstation"
 data:extend({
     monkey_workstation_item,
 });
-
-
-local beacon_interface = table.deepcopy(data.raw["beacon"]["beacon-interface--beacon-tile"])
-beacon_interface.name =  "monkey-beacon-interface"
-data:extend{beacon_interface}
 

@@ -3,6 +3,7 @@ local item_sounds = require("__base__.prototypes.item_sounds")
 local item_tints = require("__base__.prototypes.item-tints")
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 
+
 require("prototypes.monkey")
 require("prototypes.monkey-breeder")
 require("prototypes.monkey-chair")

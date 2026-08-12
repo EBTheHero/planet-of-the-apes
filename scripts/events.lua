@@ -64,8 +64,6 @@ script.on_event({
 
     if entity.name == "monkey-workstation" then
 
-        beacon = entity.surface.create_entity{name = "monkey-beacon-interface", position = entity.position, force = entity.force, raise_built = true}
-
         storage.monkey_workstations = storage.monkey_workstations or {}
 
         offset = {x = 0, y = 2}
@@ -78,7 +76,6 @@ script.on_event({
         storage.monkey_workstations[entity.unit_number] = {
             entity = entity,
             item_stack = chest1.get_inventory(defines.inventory.chest)[1],
-            beacon = beacon,
             monkey_chair = chest1,
             previous_read_value = false
         }
@@ -154,7 +151,6 @@ script.on_event({
 
         workstation_data = storage.monkey_workstations[entity.unit_number]
         if (workstation_data ~= nil) then
-            workstation_data.beacon.destroy{raise_destroy = true}
             workstation_data.monkey_chair.destroy{raise_destroy = true}
             storage.monkey_workstations[entity.unit_number] = nil
         end
