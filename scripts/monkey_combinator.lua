@@ -5,8 +5,7 @@ function combinator.tick(tick)
 
     for thing, data in pairs(storage.monkey_analyzers) do
 
-        local t = things_client.get(thing)
-        local tags = t.tags
+        local tags = things_client.tags_v1.get_tags(thing)
         local control_behavior_section = tags["control_behavior_section"]
         local stack = tags["item_stack"]
         local previous_read_value = tags["previous_read_value"]
