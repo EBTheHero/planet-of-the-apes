@@ -1,6 +1,8 @@
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 
+local things_client = require("__0-things__.client.client") --[[@as things.client]]
+
 local pipe_pictures = {
   north = {
     filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-N.png",
@@ -122,19 +124,71 @@ data:extend({
     },
     inventory_size = 1,
     inventory_type = "normal",
-
-
+    circuit_connector = circuit_connector_definitions["chest"],
+    circuit_wire_max_distance = default_circuit_wire_max_distance,
   },
 })
 
 local dummycombinator = table.deepcopy(data.raw["constant-combinator"]["constant-combinator"]);
 
+--local dummycombinator = things_client.combinators_v1.get_invisible_constant_combinator_prototype()
+
 dummycombinator.name = "monkey-analyzer-combinator"
 dummycombinator.selection_box = {{-0.5, -0.5}, {0.5, 0.5}}
 dummycombinator.integration_patch_render_layer = "object" -- make sure it's rendered on top
---dummycombinator.selectable_in_game = false
+dummycombinator.flags = {"not-on-map", "not-deconstructable", "not-selectable-in-game"}
+-- dummycombinator.selectable_in_game = false
 --dummycombinator.selection_box = {{-0, -0}, {0, 0}}
+
+local dummycombinator_item = table.deepcopy(data.raw["item"]["constant-combinator"]);
+
+dummycombinator_item.name = "monkey-analyzer-combinator"
+dummycombinator_item.place_result = "monkey-analyzer-combinator"
+dummycombinator_item.hidden = true
+dummycombinator_item.hidden_in_factoriopedia = true
 
 data:extend({
     dummycombinator,
+    dummycombinator_item
 });
+
+---@type things.ThingRegistration
+local comb_thing_registration = {
+	name = "monkey-analyzer-combinator",
+	intercept_construction = true,
+  custom_events = {
+    on_initialized = "on_initialized",
+  }
+}
+
+data.raw["mod-data"]["things-names"].data["monkey-analyzer-combinator"] = comb_thing_registration
+
+
+---@type things.ThingRegistration
+local my_thing_registration = {
+	name = "monkey-analyzer",
+	intercept_construction = true,
+  --- @type things.ThingRegistration.Child[]
+  children = { 
+    {
+      create = {name = "monkey-analyzer-combinator", position = {0,0}},
+      offset = {x = -2, y = 1},
+      lifecycle_type = "void-real",
+    },
+  },
+  custom_events = {
+    on_children_normalized = "on_children_normalized",
+    on_child_status = "on_child_status",
+    on_status = "on_status",
+    on_initialized = "on_initialized",
+  }
+}
+
+
+data.raw["mod-data"]["things-names"].data["monkey-analyzer"] = my_thing_registration
+data:extend({
+  { type = "custom-event", name = "on_children_normalized" },
+  { type = "custom-event", name = "on_child_status" },
+  { type = "custom-event", name = "on_status" },
+  { type = "custom-event", name = "on_initialized" },
+})

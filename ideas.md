@@ -81,6 +81,9 @@ Recipes that transfer tags from ingredient to product item-with-tags will [not b
 If too many crafting machine checks, use Factorio standard lib spread-across-ticks
 Use Things for the analyzer
 
+For compound entities: When blueprinting an entity that is unaccessible to the player, like a combinator, having it be neutral will not have an annoying building notification in the corner
+
+
 Graphics:
 https://github.com/malcolmriley/unused-renders for icons
 https://github.com/nicholasgower/hurricane-graphics for buildings

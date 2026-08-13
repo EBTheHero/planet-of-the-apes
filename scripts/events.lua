@@ -1,6 +1,7 @@
 local monkeybreeder = require("scripts.monkey_breeder")
 local monkeycombinator = require("scripts.monkey_combinator")
 
+local things_client = require("__0-things__.client.client") --[[@as things.client]]
 
 function freshen_up_monkey(monkey)
     monkey.set_stack({name = "monkey", count = 1, tags = monkey.tags, custom_description = monkey.custom_description})
@@ -81,23 +82,8 @@ script.on_event({
         }
     end
     
-    if entity.name == "monkey-analyzer" then
 
-        offset = {x = 1, y = 1}
-        spawn_position = {entity.position.x + offset.x, entity.position.y + offset.y}
-        combinator = entity.surface.create_entity{name = "monkey-analyzer-combinator", position = spawn_position, force = entity.force}
-        combinator.operable = false
-        storage.monkey_chairs = storage.monkey_chairs or {}
 
-        storage.monkey_chairs[entity.unit_number] = {
-            entity = entity,
-            combinator = combinator,
-            control_behavior_section = combinator.get_or_create_control_behavior().get_section(1),
-            -- item_stack = entity.get_inventory(defines.inventory.chest).inventory[1],
-            previous_read_value = false,
-            canread = entity.get_inventory(defines.inventory.chest)[1].valid_for_read
-        }
-    end
 
     if entity.name == "growth-vat" then
 
@@ -134,18 +120,18 @@ script.on_event({
         game.print("Entity mined: " .. entity.name)
     end
 
-    if entity.name == "monkey-analyzer" then
-      factorydata = storage.monkey_chairs[entity.unit_number]
-      if (factorydata ~= nil) then
+    -- if entity.name == "monkey-analyzer" then
+    --   factorydata = storage.monkey_analyzer[entity.unit_number]
+    --   if (factorydata ~= nil) then
           
       
-        if (factorydata.combinator and factorydata.combinator.valid) then
-            factorydata.combinator.destroy{raise_destroy = true}
-        end
-      end
-      storage.monkey_chairs[entity.unit_number] = nil
-      game.print("Entity mined: " .. entity.name)
-    end
+    --     if (factorydata.combinator and factorydata.combinator.valid) then
+    --         factorydata.combinator.destroy{raise_destroy = true}
+    --     end
+    --   end
+    --   storage.monkey_chairs[entity.unit_number] = nil
+    --   game.print("Entity mined: " .. entity.name)
+    -- end
 
     if entity.name == "monkey-workstation" then
 
@@ -239,3 +225,62 @@ script.on_event(
         
         end
 end)
+
+-- --- @param event things.EventData.on_child_status
+-- script.on_event(
+--   "on_child_status",
+  
+--   function(eventdata)
+--     local parent = eventdata.thing
+--     --- @type things.ThingShortSummary
+--     local child = eventdata.child
+    
+--     if (child.status == "real") then
+--         things_client.tags_v1.set_tag(parent[1], "control_behavior_section", child.get_or_create_control_behavior().get_section(1))
+--     end
+
+
+--   end
+-- )
+
+script.on_event(
+    "on_status",
+    --- @param event things.EventData.on_status
+  function(eventdata)
+    --- @type things.ThingShortSummary
+    local thing = eventdata.thing
+    
+    if (thing.thing_name == "monkey-analyzer-combinator" and thing.status == "real") then
+        local parent = thing.parent
+        things_client.tags_v1.set_tag(parent[1], "control_behavior_section", thing.entity.get_or_create_control_behavior().get_section(1))
+    end
+
+  end
+)
+
+script.on_event(
+  "on_initialized",
+--- @param event things.EventData.on_initialized
+  function(eventdata)
+    --- @type things.ThingShortSummary
+    local thing = eventdata
+    
+    if thing.thing_name == "monkey-analyzer" and thing.status == "real" then
+
+        storage.monkey_analyzers = storage.monkey_analyzers or {}
+
+        things_client.tags_v1.set_tag(thing.id, "item_stack", thing.entity.get_inventory(defines.inventory.chest)[1])
+        things_client.tags_v1.set_tag(thing.id, "previous_read_value", thing.entity.get_inventory(defines.inventory.chest)[1])
+        local fullthing = things_client.get(thing.id)
+        storage.monkey_analyzers[thing.id] = {
+        thing = fullthing
+        }
+    end
+
+    if (thing.thing_name == "monkey-analyzer-combinator" and thing.status == "real") then
+        local parent = thing.parent
+        things_client.tags_v1.set_tag(parent[1], "control_behavior_section", thing.entity.get_or_create_control_behavior().get_section(1))
+    end
+
+  end
+)
