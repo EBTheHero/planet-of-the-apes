@@ -34,3 +34,28 @@ monkey_breeder.fixed_recipe = "monkey-embryon"
 data:extend({
     monkey_breeder,
 });
+
+---@type things.ThingRegistration
+local my_thing_registration = {
+	name = "monkey-breeder",
+	intercept_construction = true,
+  --- @type things.ThingRegistration.Child[]
+    children = { 
+    {
+      create = {name = "monkey-slot", position = {0,0}},
+      offset = {x = -1, y = 2},
+      lifecycle_type = "void-real",
+    },
+    {
+      create = {name = "monkey-slot", position = {0,0}},
+      offset = {x = 1, y = 2},
+      lifecycle_type = "void-real",
+    },
+  },
+  custom_events = {
+    on_status = "on_status",
+    on_initialized = "on_initialized",
+  }
+}
+
+data.raw["mod-data"]["things-names"].data["monkey-breeder"] = my_thing_registration

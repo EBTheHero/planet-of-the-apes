@@ -184,11 +184,4 @@ local my_thing_registration = {
   }
 }
 
-
 data.raw["mod-data"]["things-names"].data["monkey-analyzer"] = my_thing_registration
-data:extend({
-  { type = "custom-event", name = "on_children_normalized" },
-  { type = "custom-event", name = "on_child_status" },
-  { type = "custom-event", name = "on_status" },
-  { type = "custom-event", name = "on_initialized" },
-})

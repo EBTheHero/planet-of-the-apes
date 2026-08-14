@@ -253,3 +253,18 @@ data:extend({
     }
   }
 })
+
+
+
+---@type things.ThingRegistration
+local thing_slot = {
+	name = "monkey-slot",
+	intercept_construction = true,
+  --- @type things.ThingRegistration.Child[]
+  custom_events = {
+    on_status = "on_status",
+    on_initialized = "on_initialized",
+  }
+}
+
+data.raw["mod-data"]["things-names"].data["monkey-slot"] = thing_slot

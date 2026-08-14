@@ -51,9 +51,9 @@ end
 local test = {}
 
 function test.tick(tick)
-    storage.monkey_factories = storage.monkey_factories or {}
+    storage.monkey_breeders = storage.monkey_breeders or {}
 
-    for unit_number, data in pairs(storage.monkey_factories) do
+    for unit_number, data in pairs(storage.monkey_breeders) do
         local entity = data.entity
     
         entity.disabled_by_script  = not breeder_has_monkeys(data)

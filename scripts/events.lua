@@ -3,6 +3,9 @@ local monkeycombinator = require("scripts.monkey_combinator")
 
 local things_client = require("__0-things__.client.client") --[[@as things.client]]
 
+
+
+
 function freshen_up_monkey(monkey)
     monkey.set_stack({name = "monkey", count = 1, tags = monkey.tags, custom_description = monkey.custom_description})
 end
@@ -30,38 +33,6 @@ script.on_event({
 
 
 
-    if entity.name == "monkey-breeder" then
-
-        offset = {x = -1, y = 2}
-        spawn_position = {entity.position.x + offset.x, entity.position.y + offset.y}
-        slot1 = entity.surface.create_entity{name = "monkey-slot", position = spawn_position, force = entity.force, raise_built = true}
-
-
-        slot1.destructible = false
-        slot1.minable_flag = false
-
-        offset = {x = 1, y = 2}
-        spawn_position = {entity.position.x + offset.x, entity.position.y + offset.y}
-        slot2 = entity.surface.create_entity{name = "monkey-slot", position = spawn_position, force = entity.force, raise_built = true}
-
-
-        slot2.destructible = false
-        slot2.minable_flag = false    
-
-        entity.disabled_by_script  = false
-
-
-        storage.monkey_factories = storage.monkey_factories or {}
-
-        storage.monkey_factories[entity.unit_number] = {
-            entity = entity,
-            products_finished = 0,
-            slot1 = slot1.get_inventory(defines.inventory.chest)[1],
-            slot2 = slot2.get_inventory(defines.inventory.chest)[1],
-            chest1 = slot1,
-            chest2 = slot2
-        }
-    end
 
     if entity.name == "monkey-workstation" then
 
@@ -111,14 +82,6 @@ script.on_event({
 }, function(event)
 	local entity = event.entity
 
-    if entity.name == "monkey-breeder" then
-        breederdata = storage.monkey_factories[entity.unit_number]
-        breederdata.chest1.destroy{raise_destroy = true}
-        breederdata.chest2.destroy{raise_destroy = true}
-
-        storage.monkey_factories[entity.unit_number] = nil
-        game.print("Entity mined: " .. entity.name)
-    end
 
     -- if entity.name == "monkey-analyzer" then
     --   factorydata = storage.monkey_analyzer[entity.unit_number]
@@ -201,7 +164,8 @@ end)
 script.on_event(
 	prototypes.recipe["monkey-embryon"].on_crafted_event
 , function(event)
-        local data = storage.monkey_factories[event.entity.unit_number]
+        local thing_id = things_client.get_thing_id(event.entity)
+        local data = storage.monkey_breeders[thing_id]
         -- on craft
         if event.entity and event.entity.valid then
 
@@ -263,6 +227,41 @@ function became_real(thing)
         }
     end
 
+    if thing.thing_name == "monkey-breeder" then
+
+        storage.monkey_breeders = storage.monkey_breeders or {}
+
+        storage.monkey_breeders[thing.id] = {
+            entity = thing.entity
+        }
+    end
+
+    if thing.thing_name == "monkey-slot" then
+
+        local parent = thing.parent
+        -- add the monkey-slot to the parent monkey-breeder's storage array
+        local stack = thing.entity.get_inventory(defines.inventory.chest)[1]
+        
+        if not storage.monkey_breeders[parent[1]].slot1 then
+            storage.monkey_breeders[parent[1]].slot1 = stack
+        elseif not storage.monkey_breeders[parent[1]].slot2 then
+            storage.monkey_breeders[parent[1]].slot2 = stack
+        end
+
+        thing.entity.destructible = false
+        thing.entity.minable_flag = false
+
+    end
+end
+
+function became_void(thing)
+    if (thing.name == "monkey-analyzer") then
+        storage.monkey_analyzers[thing.id] = nil
+    end
+
+    if (thing.name == "monkey-breeder") then
+        storage.monkey_breeders[thing.id] = nil
+    end
 end
 
 script.on_event(
@@ -276,6 +275,9 @@ script.on_event(
         became_real(thing)
     end
 
+    if (thing.status == "void") then
+        became_void(thing)
+    end
 
   end
 )
@@ -294,3 +296,4 @@ script.on_event(
 
   end
 )
+

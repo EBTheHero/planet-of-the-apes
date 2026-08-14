@@ -47,3 +47,11 @@ local connector = circuit_connector_definitions.create_vector(no_base_connector_
   shadow_offset = util.by_pixel(7.0, -4.0), -- automatically for easier shifting.
   show_shadow   = true
   }})
+
+
+data:extend({
+  { type = "custom-event", name = "on_children_normalized" },
+  { type = "custom-event", name = "on_child_status" },
+  { type = "custom-event", name = "on_status" },
+  { type = "custom-event", name = "on_initialized" },
+})
