@@ -38,7 +38,7 @@ data:extend({
     {
     type = "item",
     name = "novella",
-    icon = "__planet-of-the-apes__/sprites/icons/novella.png",
+    icon = "__planet-of-the-apes__/graphics/icons/novella.png",
     subgroup = "production-machine",
     color_hint = { text = "1" },
     order = "z",
@@ -50,7 +50,7 @@ data:extend({
 {
     type = "item",
     name = "creative-work",
-    icon = "__planet-of-the-apes__/sprites/icons/creative-work.png",
+    icon = "__planet-of-the-apes__/graphics/icons/creative-work.png",
     subgroup = "intermediate-product",
     color_hint = { text = "1" },
     order = "a[basic-intermediates]-a[iron-gear-wheel]",
@@ -62,7 +62,7 @@ data:extend({
   {
     type = "item-with-tags",
     name = "monkey-embryon",
-    icon = "__planet-of-the-apes__/sprites/icons/Periodic Madness - bacteriaed-petri-dish.png",
+    icon = "__planet-of-the-apes__/graphics/icons/Periodic Madness - bacteriaed-petri-dish.png",
     subgroup = "intermediate-product",
     color_hint = { text = "1" },
     order = "a[basic-intermediates]-a[iron-gear-wheel]",
@@ -76,7 +76,7 @@ data:extend({
     {
     type = "item",
     name = "petri-dish",
-    icon = "__planet-of-the-apes__/sprites/icons/Periodic Madness - empty-petri-dish.png",
+    icon = "__planet-of-the-apes__/graphics/icons/Periodic Madness - empty-petri-dish.png",
     subgroup = "intermediate-product",
     color_hint = { text = "1" },
     order = "a[basic-intermediates]-a[iron-gear-wheel]",
@@ -88,7 +88,7 @@ data:extend({
     {
     type = "item",
     name = "sand",
-    icon = "__planet-of-the-apes__/sprites/icons/Moshine - sand-3.png",
+    icon = "__planet-of-the-apes__/graphics/icons/Moshine - sand-3.png",
     subgroup = "intermediate-product",
     color_hint = { text = "1" },
     order = "a[basic-intermediates]-a[iron-gear-wheel]",
@@ -100,7 +100,7 @@ data:extend({
     {
     type = "item",
     name = "glass",
-    icon = "__planet-of-the-apes__/sprites/icons/Moshine - glass.png",
+    icon = "__planet-of-the-apes__/graphics/icons/Moshine - glass.png",
     subgroup = "intermediate-product",
     color_hint = { text = "1" },
     order = "a[basic-intermediates]-a[iron-gear-wheel]",
@@ -112,7 +112,7 @@ data:extend({
     {
     type = "item",
     name = "banana",
-    icon = "__planet-of-the-apes__/sprites/icons/banana-icon.png",
+    icon = "__planet-of-the-apes__/graphics/icons/banana-icon.png",
     subgroup = "intermediate-product",
     color_hint = { text = "1" },
     order = "a[basic-intermediates]-a[iron-gear-wheel]",
@@ -162,7 +162,7 @@ data:extend({
   {
     type = 'recipe',
     name = 'novella',
-    icon      = "__planet-of-the-apes__/sprites/icons/novella.png",
+    icon      = "__planet-of-the-apes__/graphics/icons/novella.png",
     enabled = true,
     categories = {'monkey-breeding'},
     ingredients = {{type="item", name="wood", amount=1}
@@ -176,7 +176,7 @@ data:extend({
     {
     type = 'recipe',
     name = 'creative-work',
-    icon      =  "__planet-of-the-apes__/sprites/icons/creative-work.png",
+    icon      =  "__planet-of-the-apes__/graphics/icons/creative-work.png",
     enabled = true,
     ingredients = {{type="item", name="novella", amount=10, quality_min = "legendary"}
       },
@@ -188,7 +188,7 @@ data:extend({
     type = 'recipe',
     name = 'petri-dish',
     categories = {"crafting"},
-    icon      =  "__planet-of-the-apes__/sprites/icons/Periodic Madness - empty-petri-dish.png",
+    icon      =  "__planet-of-the-apes__/graphics/icons/Periodic Madness - empty-petri-dish.png",
     enabled = true,
     ingredients = {{type="item", name="glass", amount=1}
       },
@@ -210,7 +210,7 @@ data:extend({
     {
     type = 'recipe',
     name = 'monkey-embryon',
-    icon      =  "__planet-of-the-apes__/sprites/icons/Periodic Madness - bacteriaed-petri-dish.png",
+    icon      =  "__planet-of-the-apes__/graphics/icons/Periodic Madness - bacteriaed-petri-dish.png",
     enabled = true,
     categories = {'monkey-breeding'},
     ingredients = {

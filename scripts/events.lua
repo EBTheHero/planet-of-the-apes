@@ -207,15 +207,28 @@ end)
 --   end
 -- )
 
---- @param thing things.ThingShortSummary
+--- @param thing things.client.ThingV1
 function became_real(thing)
 
-    if (thing.thing_name == "monkey-analyzer-combinator") then
+    if (thing.name == "monkey-analyzer-combinator") then
         local parent = thing.parent
+        -- It appears that when built by a robot, the parent is called second
+        if not storage.monkey_analyzers[parent[1]] then
+            storage.monkey_analyzers[parent[1]] = {}
+        end
         storage.monkey_analyzers[parent[1]].control_behavior_section = thing.entity.get_or_create_control_behavior().get_section(1)
+        local p = things_client.get(thing.parent[1])
+
+        local c1 = thing.entity.get_wire_connector(1)
+        local c2 = p.last_entity.get_wire_connector(1, true)
+        c1.connect_to(c2, false)
+
+        local c1 = thing.entity.get_wire_connector(2)
+        local c2 = p.last_entity.get_wire_connector(2, true)
+        c1.connect_to(c2, false)
     end
 
-    if thing.thing_name == "monkey-analyzer" then
+    if thing.name == "monkey-analyzer" then
 
         storage.monkey_analyzers = storage.monkey_analyzers or {}
 
@@ -227,7 +240,7 @@ function became_real(thing)
         }
     end
 
-    if thing.thing_name == "monkey-breeder" then
+    if thing.name == "monkey-breeder" then
 
         storage.monkey_breeders = storage.monkey_breeders or {}
 
@@ -236,20 +249,24 @@ function became_real(thing)
         }
     end
 
-    if thing.thing_name == "monkey-slot" then
-
-        local parent = thing.parent
-        -- add the monkey-slot to the parent monkey-breeder's storage array
-        local stack = thing.entity.get_inventory(defines.inventory.chest)[1]
-        
-        if not storage.monkey_breeders[parent[1]].slot1 then
-            storage.monkey_breeders[parent[1]].slot1 = stack
-        elseif not storage.monkey_breeders[parent[1]].slot2 then
-            storage.monkey_breeders[parent[1]].slot2 = stack
-        end
+    if thing.name == "monkey-slot" then
 
         thing.entity.destructible = false
         thing.entity.minable_flag = false
+
+        local parent = thing.parent
+        
+        if (parent) then
+            -- add the monkey-slot to the parent monkey-breeder's storage array
+            local stack = thing.entity.get_inventory(defines.inventory.chest)[1]
+            
+            if not storage.monkey_breeders[parent[1]].slot1 then
+                storage.monkey_breeders[parent[1]].slot1 = stack
+            elseif not storage.monkey_breeders[parent[1]].slot2 then
+                storage.monkey_breeders[parent[1]].slot2 = stack
+        end
+
+    end
 
     end
 end
@@ -271,6 +288,7 @@ script.on_event(
     --- @type things.ThingShortSummary
     local thing = eventdata.thing
     
+
     if (thing.status == "real") then
         became_real(thing)
     end
@@ -286,10 +304,10 @@ script.on_event(
   "on_initialized",
 --- @param event things.EventData.on_initialized
   function(eventdata)
-    --- @type things.ThingShortSummary
+    --- @type things.ThingSummary
     local thing = eventdata
     
-
+  eventdata.name = eventdata.thing_name
   if (eventdata.status == "real") then
       became_real(eventdata)
     end

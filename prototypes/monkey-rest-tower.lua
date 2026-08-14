@@ -99,7 +99,7 @@ rest_tower.radius_visualisation_specification =
 {
   sprite =
   {
-    filename = "__planet-of-the-apes__/sprites/rest-tower-radius-visualization.png",
+    filename = "__planet-of-the-apes__/graphics/rest-tower-radius-visualization.png",
     size = 500
   },
   distance = 15

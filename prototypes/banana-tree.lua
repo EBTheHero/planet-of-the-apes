@@ -1,6 +1,6 @@
 local variation = {{
       trunk = {
-        filename = "__planet-of-the-apes__/sprites/entity/banana-tree/banana-tree.png",
+        filename = "__planet-of-the-apes__/graphics/entity/banana-tree/banana-tree.png",
         flags = { "mipmap" },
         surface = "gleba",
         width = 1024,
@@ -14,7 +14,7 @@ local variation = {{
         scale = 0.33
       },
       leaves = {
-        filename = "__planet-of-the-apes__/sprites/entity/banana-tree/leaves-transparent.png",
+        filename = "__planet-of-the-apes__/graphics/entity/banana-tree/leaves-transparent.png",
         flags = { "mipmap" },
         surface = "gleba",
         width = 1024,
@@ -33,7 +33,7 @@ local variation = {{
         line_length = 2,
         flags = { "mipmap", "shadow" },
         surface = "gleba",
-        filename = "__planet-of-the-apes__/sprites/entity/banana-tree/shadow.png",
+        filename = "__planet-of-the-apes__/graphics/entity/banana-tree/shadow.png",
         width = 1024,
         height = 1024,
         x = 0,

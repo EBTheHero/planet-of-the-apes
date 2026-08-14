@@ -5,7 +5,7 @@ local things_client = require("__0-things__.client.client") --[[@as things.clien
 
 local pipe_pictures = {
   north = {
-    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-N.png",
+    filename = "__planet-of-the-apes__/graphics/buildings/research-server/research-server-k-pipe-N.png",
     priority = "extra-high",
     width = 71,
     height = 38,
@@ -13,7 +13,7 @@ local pipe_pictures = {
     scale = 0.5,
   },
   east = {
-    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-E.png",
+    filename = "__planet-of-the-apes__/graphics/buildings/research-server/research-server-k-pipe-E.png",
     priority = "extra-high",
     width = 42,
     height = 76,
@@ -21,7 +21,7 @@ local pipe_pictures = {
     scale = 0.5,
   },
   south = {
-    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-S.png",
+    filename = "__planet-of-the-apes__/graphics/buildings/research-server/research-server-k-pipe-S.png",
     priority = "extra-high",
     width = 88,
     height = 61,
@@ -29,7 +29,7 @@ local pipe_pictures = {
     scale = 0.5,
   },
   west = {
-    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-k-pipe-W.png",
+    filename = "__planet-of-the-apes__/graphics/buildings/research-server/research-server-k-pipe-W.png",
     priority = "extra-high",
     width = 39,
     height = 73,
@@ -52,7 +52,7 @@ data:extend({
   {
     type = "item",
     name = "monkey-analyzer",
-    icon = "__planet-of-the-apes__/sprites/icons/entities/research-server.png",
+    icon = "__planet-of-the-apes__/graphics/icons/entities/research-server.png",
     subgroup = "production-machine",
     order = "f3",
     place_result = "monkey-analyzer",
@@ -61,11 +61,11 @@ data:extend({
   {
     type = "container",
     name = "monkey-analyzer",
-    icon = "__planet-of-the-apes__/sprites/icons/entities/research-server.png",
+    icon = "__planet-of-the-apes__/graphics/icons/entities/research-server.png",
     flags = { "placeable-neutral", "placeable-player", "player-creation" },
     minable = { mining_time = 0.5, result = "monkey-analyzer" },
     collision_box = { { -1.25, -1.25 }, { 1.25, 1.25 } },
-    selection_box = { { -1.4, -1.4 }, { 1.4, 1.4 } },
+    selection_box = { { -1.4, -1.4}, { 1.4, 1.4 } },
     crafting_categories = { "monkey-breeding" },
     crafting_speed = 1,
     ingredient_count = 6,
@@ -85,7 +85,7 @@ data:extend({
     {
         layers = {
                 {
-                    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-base.png",
+                    filename = "__planet-of-the-apes__/graphics/buildings/research-server/research-server-edit.png",
                     priority = "high",
                     width = 256,
                     height = 256,
@@ -96,7 +96,7 @@ data:extend({
                     scale = 0.5,
                 },
                 {
-                    filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-shadow.png",
+                    filename = "__planet-of-the-apes__/graphics/buildings/research-server/research-server-shadow.png",
                     priority = "high",
                     width = 256,
                     height = 256,
@@ -111,7 +111,7 @@ data:extend({
 
     water_reflection = {
         pictures = {
-          filename = "__planet-of-the-apes__/sprites/buildings/research-server/research-server-reflection.png",
+          filename = "__planet-of-the-apes__/graphics/buildings/research-server/research-server-reflection.png",
           priority = "extra-high",
           width = 40,
           height = 40,
@@ -134,10 +134,14 @@ local dummycombinator = table.deepcopy(data.raw["constant-combinator"]["constant
 --local dummycombinator = things_client.combinators_v1.get_invisible_constant_combinator_prototype()
 
 dummycombinator.name = "monkey-analyzer-combinator"
-dummycombinator.selection_box = {{-0.5, -0.5}, {0.5, 0.5}}
+dummycombinator.selection_box = {{-0.0, -0.0}, {0.0, 0.0}}
+dummycombinator.collision_box = {{-0, -0}, {0, 0}}
 dummycombinator.integration_patch_render_layer = "object" -- make sure it's rendered on top
 dummycombinator.flags = {"not-on-map", "not-deconstructable", "not-selectable-in-game"}
--- dummycombinator.selectable_in_game = false
+dummycombinator.sprites = nil
+dummycombinator.draw_circuit_wires = false
+dummycombinator.selectable_in_game = false
+dummycombinator.collision_mask = nil
 --dummycombinator.selection_box = {{-0, -0}, {0, 0}}
 
 local dummycombinator_item = table.deepcopy(data.raw["item"]["constant-combinator"]);
@@ -146,6 +150,7 @@ dummycombinator_item.name = "monkey-analyzer-combinator"
 dummycombinator_item.place_result = "monkey-analyzer-combinator"
 dummycombinator_item.hidden = true
 dummycombinator_item.hidden_in_factoriopedia = true
+
 
 data:extend({
     dummycombinator,
@@ -171,14 +176,12 @@ local my_thing_registration = {
   --- @type things.ThingRegistration.Child[]
   children = { 
     {
-      create = {name = "monkey-analyzer-combinator", position = {0,0}},
-      offset = {x = -2, y = 1},
+      create = {name = "monkey-analyzer-combinator", position = {0,0}, snap_to_grid = false},
+      offset = {x = -1, y = 1},
       lifecycle_type = "void-real",
     },
   },
   custom_events = {
-    on_children_normalized = "on_children_normalized",
-    on_child_status = "on_child_status",
     on_status = "on_status",
     on_initialized = "on_initialized",
   }

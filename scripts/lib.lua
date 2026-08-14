@@ -25,7 +25,7 @@ function verify_monkey(itemstack)
 
     
     if (itemstack.get_tag("smarts") == nil) then
-        stats = {name = get_name(), smarts = 100, meticulousness = 100, creativity = 100, endurance = 50, creation_time = game.tick}
+        stats = {name = get_name(), smarts = 120, meticulousness = 10, creativity = 30, endurance = 50, creation_time = game.tick}
         itemstack.tags = stats
         itemstack.custom_description = make_description_from_stats(stats)
     end
