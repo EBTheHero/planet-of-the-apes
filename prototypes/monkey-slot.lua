@@ -181,7 +181,7 @@ data:extend({
     
           {
     type = 'item',
-    name = 'monkey-chair',
+    name = 'monkey-slot',
     
     
     icon      =  "__base__/graphics/icons/steel-chest.png",
@@ -189,7 +189,7 @@ data:extend({
     subgroup  = 'energy',
     order     = 'z'     ,
     
-    place_result = 'monkey-chair',
+    place_result = 'monkey-slot',
 
     stack_size   =  50     ,
 
@@ -197,11 +197,11 @@ data:extend({
     },
     {
     type = "container",
-    name = "monkey-chair",
+    name = "monkey-slot",
     icon = "__base__/graphics/icons/steel-chest.png",
     flags = {"placeable-neutral", "player-creation"},
     trigger_target_mask = {"rest-target"},
-    minable = {mining_time = 0.2, result = "monkey-chair"},
+    minable = {mining_time = 0.2, result = "monkey-slot"},
     max_health = 350,
     corpse = "steel-chest-remnants",
     dying_explosion = "steel-chest-explosion",
@@ -253,4 +253,3 @@ data:extend({
     }
   }
 })
-

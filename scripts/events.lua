@@ -9,7 +9,7 @@ end
 
 script.on_event(defines.events.on_script_trigger_effect, function(event)
     if (event.effect_id == "rest-dummy-spoil") then
-        -- spoil effect in prototypes should only target monkey-chairs
+        -- spoil effect in prototypes should only target monkey-slots
         if (event.target_entity.valid) then
             itemstack = event.target_entity.get_inventory(defines.inventory.chest)[1]
             if (itemstack.valid_for_read and itemstack.name == "tired-monkey") then
@@ -34,7 +34,7 @@ script.on_event({
 
         offset = {x = -1, y = 2}
         spawn_position = {entity.position.x + offset.x, entity.position.y + offset.y}
-        slot1 = entity.surface.create_entity{name = "monkey-chair", position = spawn_position, force = entity.force, raise_built = true}
+        slot1 = entity.surface.create_entity{name = "monkey-slot", position = spawn_position, force = entity.force, raise_built = true}
 
 
         slot1.destructible = false
@@ -42,7 +42,7 @@ script.on_event({
 
         offset = {x = 1, y = 2}
         spawn_position = {entity.position.x + offset.x, entity.position.y + offset.y}
-        slot2 = entity.surface.create_entity{name = "monkey-chair", position = spawn_position, force = entity.force, raise_built = true}
+        slot2 = entity.surface.create_entity{name = "monkey-slot", position = spawn_position, force = entity.force, raise_built = true}
 
 
         slot2.destructible = false
@@ -69,7 +69,7 @@ script.on_event({
 
         offset = {x = 0, y = 2}
         spawn_position = {entity.position.x + offset.x, entity.position.y + offset.y}
-        chest1 = entity.surface.create_entity{name = "monkey-chair", position = spawn_position, force = entity.force, raise_built = true}
+        chest1 = entity.surface.create_entity{name = "monkey-slot", position = spawn_position, force = entity.force, raise_built = true}
 
         chest1.destructible = false
         chest1.minable_flag = false
@@ -243,6 +243,28 @@ end)
 --   end
 -- )
 
+--- @param thing things.ThingShortSummary
+function became_real(thing)
+
+    if (thing.thing_name == "monkey-analyzer-combinator") then
+        local parent = thing.parent
+        storage.monkey_analyzers[parent[1]].control_behavior_section = thing.entity.get_or_create_control_behavior().get_section(1)
+    end
+
+    if thing.thing_name == "monkey-analyzer" then
+
+        storage.monkey_analyzers = storage.monkey_analyzers or {}
+
+        local fullthing = things_client.get(thing.id)
+        storage.monkey_analyzers[thing.id] = {
+        thing = fullthing,
+        item_stack = thing.entity.get_inventory(defines.inventory.chest)[1],
+        previous_read_value = thing.entity.get_inventory(defines.inventory.chest)[1].valid_for_read
+        }
+    end
+
+end
+
 script.on_event(
     "on_status",
     --- @param event things.EventData.on_status
@@ -250,10 +272,10 @@ script.on_event(
     --- @type things.ThingShortSummary
     local thing = eventdata.thing
     
-    if (thing.thing_name == "monkey-analyzer-combinator" and thing.status == "real") then
-        local parent = thing.parent
-        things_client.tags_v1.set_tag(parent[1], "control_behavior_section", thing.entity.get_or_create_control_behavior().get_section(1))
+    if (thing.status == "real") then
+        became_real(thing)
     end
+
 
   end
 )
@@ -265,21 +287,9 @@ script.on_event(
     --- @type things.ThingShortSummary
     local thing = eventdata
     
-    if thing.thing_name == "monkey-analyzer" and thing.status == "real" then
 
-        storage.monkey_analyzers = storage.monkey_analyzers or {}
-
-        things_client.tags_v1.set_tag(thing.id, "item_stack", thing.entity.get_inventory(defines.inventory.chest)[1])
-        things_client.tags_v1.set_tag(thing.id, "previous_read_value", thing.entity.get_inventory(defines.inventory.chest)[1])
-        local fullthing = things_client.get(thing.id)
-        storage.monkey_analyzers[thing.id] = {
-        thing = fullthing
-        }
-    end
-
-    if (thing.thing_name == "monkey-analyzer-combinator" and thing.status == "real") then
-        local parent = thing.parent
-        things_client.tags_v1.set_tag(parent[1], "control_behavior_section", thing.entity.get_or_create_control_behavior().get_section(1))
+  if (eventdata.status == "real") then
+      became_real(eventdata)
     end
 
   end

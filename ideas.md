@@ -5,9 +5,9 @@ Monkeys can get tired and need rest and feeding
 Monkeys need to rest inside a building
 - Can the building be biome locked, encouranging players to make trains that carry monkeys?
 - Monkeys have a chance of dying of old age when resting
-- resting could be done with one structure with a recipe with no ingredient, and the result is an item with instant spoil, and it's trigger affects all monkey-chairs around 
+- resting could be done with one structure with a recipe with no ingredient, and the result is an item with instant spoil, and it's trigger affects all monkey-slots around 
 - The resting shouldn't be instant. It should have a chance to heal the monkey
-- That one structure is a world tree. It takes in bananas and produces random particles that has a chance to hit monkey-chairs
+- That one structure is a world tree. It takes in bananas and produces random particles that has a chance to hit monkey-slots
 
 Food is from agricultural towers
 

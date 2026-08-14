@@ -7,7 +7,7 @@ local hit_effects = require("__base__.prototypes.entity.hit-effects")
 
 require("prototypes.monkey")
 require("prototypes.monkey-breeder")
-require("prototypes.monkey-chair")
+require("prototypes.monkey-slot")
 require("prototypes.monkey-analyzer")
 require("prototypes.monkey-rest-tower")
 require("prototypes.monkey-workstation")

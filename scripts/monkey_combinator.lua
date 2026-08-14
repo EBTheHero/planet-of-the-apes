@@ -5,20 +5,20 @@ function combinator.tick(tick)
 
     for thing, data in pairs(storage.monkey_analyzers) do
 
-        local tags = things_client.tags_v1.get_tags(thing)
-        local control_behavior_section = tags["control_behavior_section"]
-        local stack = tags["item_stack"]
-        local previous_read_value = tags["previous_read_value"]
+        local control_behavior_section = data["control_behavior_section"]
+        local stack = data["item_stack"]
+        local previous_read_value = data["previous_read_value"]
 
         if (control_behavior_section == nil) then
             return
         end
 
         v = stack.valid_for_read
+
         if (v ~= previous_read_value) then
             -- item changed, update the control behavior section
             previous_read_value = stack.valid_for_read
-            things_client.tags_v1.set_tag(thing_id, "previous_read_value", previous_read_value)
+            data["previous_read_value"] = previous_read_value
             if (stack.valid_for_read) then
                 if (stack.name == "monkey" or stack.name == "tired-monkey") then
                     stats = stack.tags
