@@ -56,7 +56,9 @@ function test.tick(tick)
     for unit_number, data in pairs(storage.monkey_breeders) do
         local entity = data.entity
     
-        entity.disabled_by_script  = not breeder_has_monkeys(data)
+        if (entity and entity.valid) then
+            entity.disabled_by_script  = not breeder_has_monkeys(data)
+        end
     end
 end
 
