@@ -1,0 +1,1 @@
+captcha-solving-station: Krastorio 1 GNU LGPLv3

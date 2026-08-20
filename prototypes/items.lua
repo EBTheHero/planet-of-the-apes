@@ -162,7 +162,7 @@ data:extend({
 		name = "novella",
 		icon = "__planet-of-the-apes__/graphics/icons/novella.png",
 		enabled = true,
-		categories = { "monkey-breeding" },
+		categories = { "monkey-workstation-exclusive" },
 		ingredients = { { type = "item", name = "wood", amount = 1 } },
 
 		--results = {{type = 'item', name = 'monkey', amount = 1}},

@@ -33,30 +33,6 @@ script.on_event({
 }, function(event)
 	local entity = event.entity
 
-	if entity.name == "monkey-workstation" then
-		storage.monkey_workstations = storage.monkey_workstations or {}
-
-		offset = { x = 0, y = 2 }
-		spawn_position =
-			{ entity.position.x + offset.x, entity.position.y + offset.y }
-		chest1 = entity.surface.create_entity({
-			name = "monkey-slot",
-			position = spawn_position,
-			force = entity.force,
-			raise_built = true,
-		})
-
-		chest1.destructible = false
-		chest1.minable_flag = false
-
-		storage.monkey_workstations[entity.unit_number] = {
-			entity = entity,
-			item_stack = chest1.get_inventory(defines.inventory.chest)[1],
-			monkey_chair = chest1,
-			previous_read_value = false,
-		}
-	end
-
 	if entity.name == "growth-vat" then
 		storage.growth_vats = storage.growth_vats or {}
 
@@ -79,26 +55,6 @@ script.on_event({
 }, function(event)
 	local entity = event.entity
 
-	-- if entity.name == "monkey-analyzer" then
-	--   factorydata = storage.monkey_analyzer[entity.unit_number]
-	--   if (factorydata ~= nil) then
-
-	--     if (factorydata.combinator and factorydata.combinator.valid) then
-	--         factorydata.combinator.destroy{raise_destroy = true}
-	--     end
-	--   end
-	--   storage.monkey_chairs[entity.unit_number] = nil
-	--   game.print("Entity mined: " .. entity.name)
-	-- end
-
-	if entity.name == "monkey-workstation" then
-		workstation_data = storage.monkey_workstations[entity.unit_number]
-		if workstation_data ~= nil then
-			workstation_data.monkey_chair.destroy({ raise_destroy = true })
-			storage.monkey_workstations[entity.unit_number] = nil
-		end
-	end
-
 	if entity.name == "growth-vat" then
 		growth_vats = storage.growth_vats[entity.unit_number]
 		if growth_vats ~= nil then storage.growth_vats[entity.unit_number] = nil end
@@ -109,7 +65,7 @@ script.on_event(prototypes.recipe["novella"].on_crafted_event, function(event)
 	machineID = event.entity.unit_number
 	workstation_data = storage.monkey_workstations[machineID]
 	item_stack = workstation_data.item_stack
-	reduce_monkey_health(item_stack, 0.05)
+	reduce_monkey_health(item_stack)
 end)
 
 script.on_event(defines.events.on_tower_planted_seed, function(event)
@@ -172,8 +128,8 @@ script.on_event(
 			outputinventory[1].tags = stats
 			outputinventory[1].custom_description = make_description_from_stats(stats)
 
-			reduce_monkey_health(data.slot1, 0.05)
-			reduce_monkey_health(data.slot2, 0.05)
+			reduce_monkey_health(data.slot1)
+			reduce_monkey_health(data.slot2)
 		end
 	end
 )
@@ -246,17 +202,38 @@ function became_real(thing)
 		if parent then
 			-- add the monkey-slot to the parent monkey-breeder's storage array
 			local stack = thing.entity.get_inventory(defines.inventory.chest)[1]
+			local parent_thing = things_client.get(parent[1])
+			if parent_thing.name == "monkey-breeder" then
+				if not storage.monkey_breeders[parent[1]] then
+					storage.monkey_breeders[parent[1]] = {}
+				end
 
-			if not storage.monkey_breeders[parent[1]] then
-				storage.monkey_breeders[parent[1]] = {}
+				if not storage.monkey_breeders[parent[1]].slot1 then
+					storage.monkey_breeders[parent[1]].slot1 = stack
+				elseif not storage.monkey_breeders[parent[1]].slot2 then
+					storage.monkey_breeders[parent[1]].slot2 = stack
+				end
 			end
-			storage.monkey_breeders[parent[1]].hello = "testttt"
-			if not storage.monkey_breeders[parent[1]].slot1 then
-				storage.monkey_breeders[parent[1]].slot1 = stack
-			elseif not storage.monkey_breeders[parent[1]].slot2 then
-				storage.monkey_breeders[parent[1]].slot2 = stack
+
+			if parent_thing.name == "monkey-captcha-solver" then
+				if not storage.monkey_captcha_solvers[parent[1]] then
+					storage.monkey_captcha_solvers[parent[1]] = {}
+				end
+
+				if not storage.monkey_captcha_solvers[parent[1]].slot1 then
+					storage.monkey_captcha_solvers[parent[1]].slot1 = stack
+				end
 			end
 		end
+	end
+
+	if thing.name == "monkey-workstation" then
+		storage.monkey_workstations = storage.monkey_workstations or {}
+
+		storage.monkey_workstations[thing.id] = {
+			entity = thing.id,
+			previous_read_value = false,
+		}
 	end
 end
 
@@ -267,6 +244,10 @@ function became_void(thing)
 
 	if thing.name == "monkey-breeder" then
 		storage.monkey_breeders[thing.id] = nil
+	end
+
+	if thing.name == "monkey-workstation" then
+		storage.monkey_workstations[thing.id] = nil
 	end
 end
 

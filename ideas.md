@@ -69,7 +69,7 @@ Rewards
 Other:
 There's a "moshine - datacell-empty.png" that's a usb stick and I want a recipe that has a 50% chance of failure caus of it
 Monkeys have gender/sex. You can only breed male with females (that's only a reason to add transgenderism)
-
+Bio Industries has a pollution sensor graphis
 
 
 TODO:

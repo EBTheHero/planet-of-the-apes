@@ -1,6 +1,17 @@
-function reduce_monkey_health(monkey, health)
+function reduce_monkey_health(
+	monkey, --[[optional]]
+	health
+)
 	if monkey.valid and monkey.name == "monkey" then
-		if monkey.health - health <= 0 then
+		local damage = 0.0
+		if health == nil then
+			damage = 0.05
+		else
+			local endurance = monkey.get_tag("endurance")
+			damage = 1 / endurance
+		end
+
+		if monkey.health - damage <= 0 then
 			-- monkey is spent and becomes tired
 			monkey.set_stack({
 				name = "tired-monkey",
@@ -9,7 +20,7 @@ function reduce_monkey_health(monkey, health)
 				custom_description = monkey.custom_description,
 			})
 		else
-			monkey.health = monkey.health - 0.05
+			monkey.health = monkey.health - damage
 		end
 	end
 end
@@ -70,7 +81,7 @@ function breeder_has_monkeys(breeder_data)
 end
 
 function itemstack_is_monkey(itemstack)
-	if itemstack.valid and itemstack.valid_for_read then
+	if itemstack and itemstack.valid and itemstack.valid_for_read then
 		return itemstack.name == "monkey"
 	else
 		return false
